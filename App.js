@@ -8,80 +8,20 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground } from 'react-native';
 import{Button, Header} from 'react-native-elements';
-import {Drawer} from 'native-base';
-import SideBar from './sidebar';
+import {StackNavigator} from 'react-navigation';
+import NewScreen from './screens/newscreen';
+import SecondScreen from './screens/secondscreen';
+
+const AppNavigator = StackNavigator({
+  First: {screen: NewScreen},
+  Second: {screen: SecondScreen},
+});
 export default class App extends React.Component {
-  
-  constructor(){
-
-    super();
-  
-    this.state = {  
-        TextHolder:"Don't Press that button"
-    }
-  
-  }
-  closeDrawer = () => {
-    this.drawer._root.close()
-  };
-  openDrawer = () => {
-    this.drawer._root.open()
-  }
-  render() {
-
-    return (
-      <Drawer
-      ref={(ref) => { this.drawer = ref; }}
-      content={<SideBar navigator={this.navigator} />}
-      onClose={() => this.closeDrawer()} >
-      <ImageBackground source={require('./images/bg.jpg')} style={styles.containerBG}>
-      <Header 
-      backgroundColor='rgba(0, 190, 250, 0.20)'
-      leftComponent={{
-        icon: 'menu',
-        color: '#fff',
-        onPress: () => this.openDrawer(),
-     }}          
-     centerComponent={{ 
-      text:'You got chair',
-
-      style:{
-      color:'white',
-      }
-    }}
-    
-      />
-      <View style={styles.container}>
-      <View style={styles.sectionOne}>
-        <Text style={styles.textOnPage}> {this.state.TextHolder} </Text>
-      </View>
-      <View style = {styles.sectionTwo}>
-        <Button 
-        onPress={this.buttonClick}
-        title="Press it"
-        backgroundColor="darkgray"  
-        color='white'
-        rounded={true}        
-        accessibilityLabel=""
-        />
-      </View>
-      </View>
-
-      </ImageBackground>
-      </Drawer>
-
+  render(){
+    return(
+      <AppNavigator />
     );
   }
-  randomDarkness=()=>{
- 
-  }
-  buttonClick=()=>{
-    //alert(2+2 + "hello world")
-    this.setState({TextHolder: "Way to go Asshole"})
-    setTimeout(() => this.setState({TextHolder: "Dont Press It Again"}), 5000)
-    
-    
-  };
 }
 
 const styles = StyleSheet.create({
@@ -117,3 +57,4 @@ const styles = StyleSheet.create({
   }
 });
 
+//export default Navigation;
